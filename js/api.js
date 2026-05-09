@@ -1,4 +1,6 @@
-const API_URL = 'http://localhost:8009';
+const API_URL = window.location.hostname === 'localhost'
+  ? 'http://localhost:8009'
+  : 'https://music-mood-api-1.onrender.com';
 
 const api = {
   getSongs: (params = {}) => {
