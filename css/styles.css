@@ -77,7 +77,11 @@ input, select, textarea { font-family: inherit; }
 
 .nav-item.active { color: var(--green); }
 
-.nav-icon { font-size: 1.2rem; width: 20px; text-align: center; }
+.nav-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
 
 .main-content {
   margin-left: 240px;
