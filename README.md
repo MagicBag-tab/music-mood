@@ -6,6 +6,8 @@ Cliente web para el **Music Mood API**. Construido con HTML, CSS y JavaScript va
 
 🌐 **Live demo:** https://music-mood-fullstack-proyect.netlify.app/
 
+![Screenshot de la aplicación funcionando](assets\Screenshot.png)
+
 ---
 
 ## ¿Qué hace la app?

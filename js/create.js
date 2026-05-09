@@ -21,7 +21,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 async function loadArtists() {
   try {
-    const artists = await api.getArtists();
+    const res     = await api.getArtists();
+    const artists = Array.isArray(res) ? res : [];
     const select  = document.getElementById('artist-id');
     artists.forEach(a => {
       const opt = document.createElement('option');
@@ -36,7 +37,8 @@ async function loadArtists() {
 
 async function loadAlbums() {
   try {
-    allAlbums = await api.getAlbums();
+    const res = await api.getAlbums();
+    allAlbums = Array.isArray(res) ? res : [];
     populateAlbums();
 
     document.getElementById('artist-id').addEventListener('change', populateAlbums);

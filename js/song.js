@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   await loadSong();
   await loadRatings();
   setupStars();
-  setupActions();
 });
 
 async function loadSong() {

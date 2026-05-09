@@ -94,7 +94,10 @@ async function loadTopRated() {
 async function loadStats() {
   try {
     const res = await api.getSongs({ page: 1, limit: 1 });
-    document.getElementById('stat-total').textContent = res.total ?? '?';
+    const el = document.getElementById('stat-total');
+    el.className = '';
+    el.style = '';
+    el.textContent = res.total ?? '?';
   } catch {
     document.getElementById('stat-total').textContent = '?';
   }
