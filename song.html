@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Song Detail — MoodTracker</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="var(--green)">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
+      </svg>
+      <span>Mood<strong>Tracker</strong></span>
+    </div>
+    <a href="index.html" class="nav-item active">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+      </svg>
+      Songs
+    </a>
+    <a href="create.html" class="nav-item">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+      </svg>
+      Add Song
+    </a>
+    <a href="reports.html" class="nav-item">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14H7v-2h5v2zm5-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+      </svg>
+      Reports
+    </a>
+  </aside>
+
+  <main class="main-content">
+    <a href="index.html" class="btn btn-secondary" style="margin-bottom:24px;display:inline-flex">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+      </svg>
+      Back
+    </a>
+
+    <div class="song-detail-hero" id="song-hero">
+      <div class="skeleton" style="width:200px;height:200px;border-radius:12px;flex-shrink:0"></div>
+      <div style="flex:1">
+        <div class="skeleton" style="height:14px;width:80px;border-radius:4px;margin-bottom:12px"></div>
+        <div class="skeleton" style="height:40px;width:60%;border-radius:4px;margin-bottom:12px"></div>
+        <div class="skeleton" style="height:16px;width:40%;border-radius:4px;margin-bottom:8px"></div>
+        <div class="skeleton" style="height:16px;width:30%;border-radius:4px"></div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:12px;margin-bottom:40px;flex-wrap:wrap" id="song-actions" hidden>
+      <button class="btn btn-primary" id="btn-edit">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+        </svg>
+        Edit Song
+      </button>
+      <label class="btn btn-secondary" style="cursor:pointer">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+        </svg>
+        Upload Cover
+        <input type="file" id="file-input" accept="image/*" hidden />
+      </label>
+      <button class="btn btn-danger" id="btn-delete">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+        </svg>
+        Delete
+      </button>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px" id="song-body" hidden>
+      <div>
+        <h2 style="font-size:1.2rem;margin-bottom:20px;font-weight:700">Ratings</h2>
+
+        <div style="background:var(--surface);border-radius:12px;padding:20px;margin-bottom:20px">
+          <div style="display:flex;align-items:center;gap:16px">
+            <div style="font-size:3rem;font-weight:700;color:var(--green)" id="avg-score">—</div>
+            <div>
+              <div class="rating-stars" id="avg-stars"></div>
+              <div style="color:var(--text-muted);font-size:0.85rem" id="rating-count">No ratings yet</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border-radius:12px;padding:20px;margin-bottom:20px">
+          <h3 style="font-size:0.9rem;font-weight:700;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted)">Add Rating</h3>
+          <div class="rating-stars" id="input-stars">
+            <span class="star" data-value="1">&#9733;</span>
+            <span class="star" data-value="2">&#9733;</span>
+            <span class="star" data-value="3">&#9733;</span>
+            <span class="star" data-value="4">&#9733;</span>
+            <span class="star" data-value="5">&#9733;</span>
+          </div>
+          <textarea class="form-textarea" id="rating-comment"
+            placeholder="Add a comment (optional)..."
+            style="margin-top:12px;min-height:80px"></textarea>
+          <button class="btn btn-primary" style="margin-top:12px;width:100%" id="btn-rate">
+            Submit Rating
+          </button>
+        </div>
+
+        <div class="ratings-list" id="ratings-list"></div>
+      </div>
+
+      <div>
+        <h2 style="font-size:1.2rem;margin-bottom:20px;font-weight:700">Song Info</h2>
+        <div style="background:var(--surface);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:16px" id="song-info"></div>
+      </div>
+    </div>
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/api.js"></script>
+  <script src="js/song.js"></script>
+</body>
+</html>

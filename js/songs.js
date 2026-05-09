@@ -79,16 +79,14 @@ function renderSongCard(song) {
   const mood  = MOOD_COLORS[song.mood] || { bg: '#333', color: '#fff', label: song.mood };
   const cover = song.image_path
     ? `<img src="http://localhost:8009${song.image_path}" alt="${song.title}"
-         onerror="this.parentElement.innerHTML='<svg viewBox=\\'0 0 24 24\\' fill=\\'${mood.color}\\' width=\\'48\\' height=\\'48\\'><path d=\\'M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z\\'/></svg>'">`
-    : `<svg viewBox="0 0 24 24" fill="${mood.color}" width="48" height="48">
-         <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
-       </svg>`;
+         onerror="this.src='assets/placeholder.jpg'">`
+    : `<img src="assets/placeholder.jpg" alt="${song.title}">`;
 
   return `
     <div class="song-card" onclick="window.location.href='song.html?id=${song.id}'">
       <div class="song-card-image" style="background:${mood.bg}">${cover}</div>
       <div class="song-card-title">${song.title}</div>
-      <div class="song-card-artist">Artist #${song.artist_id}</div>
+      <div class="song-card-artist">${song.artist_name || `Artist #${song.artist_id}`}</div>
       <span class="mood-badge" style="background:${mood.bg};color:${mood.color}">
         ${mood.label}
       </span>
