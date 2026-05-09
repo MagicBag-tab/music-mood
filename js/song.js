@@ -29,13 +29,13 @@ async function loadSong() {
     if (song.error) { window.location.href = 'index.html'; return; }
 
     try {
-      const artist = await fetch(`http://localhost:8009/artists/${song.artist_id}`).then(r => r.json());
+      const artist = await fetch(`${API_URL}/artists/${song.artist_id}`).then(r => r.json());
       artistName = artist.name || `Artist #${song.artist_id}`;
     } catch { artistName = `Artist #${song.artist_id}`; }
 
     if (song.album_id) {
       try {
-        const album = await fetch(`http://localhost:8009/albums/${song.album_id}`).then(r => r.json());
+        const album = await fetch(`${API_URL}/albums/${song.album_id}`).then(r => r.json());
         albumTitle = album.title || '';
       } catch { albumTitle = ''; }
     }
@@ -62,7 +62,7 @@ async function loadSong() {
 function renderHero(song) {
   const mood  = MOOD_COLORS[song.mood] || { bg: '#333', color: '#fff', label: song.mood };
   const cover = song.image_path
-    ? `<img src="http://localhost:8009${song.image_path}" alt="${song.title}"
+    ? `<img src="${API_URL}${song.image_path}" alt="${song.title}"
          onerror="this.src='assets/placeholder.jpg'">`
     : `<img src="assets/placeholder.jpg" alt="${song.title}">`;
 

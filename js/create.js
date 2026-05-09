@@ -81,7 +81,7 @@ async function prefillForm() {
 
     if (song.image_path) {
       document.getElementById('image-preview').src =
-        `http://localhost:8009${song.image_path}`;
+        `${API_URL}${song.image_path}`;
     }
   } catch {
     showToast('Could not load song data', 'error');

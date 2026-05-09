@@ -70,7 +70,7 @@ async function loadSongs() {
     grid.innerHTML = `
       <div class="empty-state" style="grid-column:1/-1">
         <h3>Could not load songs</h3>
-        <p>Make sure the backend is running on port 8009</p>
+        <p>Make sure the backend is running and accessible</p>
       </div>`;
   }
 }
@@ -78,7 +78,7 @@ async function loadSongs() {
 function renderSongCard(song) {
   const mood  = MOOD_COLORS[song.mood] || { bg: '#333', color: '#fff', label: song.mood };
   const cover = song.image_path
-    ? `<img src="http://localhost:8009${song.image_path}" alt="${song.title}"
+    ? `<img src="${API_URL}${song.image_path}" alt="${song.title}"
          onerror="this.src='assets/placeholder.jpg'">`
     : `<img src="assets/placeholder.jpg" alt="${song.title}">`;
 
