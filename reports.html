@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reports — MoodTracker</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .chart-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .chart-label {
+      width: 90px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      flex-shrink: 0;
+      text-align: right;
+    }
+    .chart-bar-wrap {
+      flex: 1;
+      background: var(--surface-3);
+      border-radius: 50px;
+      height: 28px;
+      overflow: hidden;
+    }
+    .chart-bar {
+      height: 100%;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      padding-left: 12px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      min-width: 36px;
+    }
+    .chart-count {
+      width: 36px;
+      text-align: right;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .top-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 16px;
+      transition: background var(--transition);
+      cursor: pointer;
+    }
+    .top-card:hover { background: var(--surface-2); }
+    .top-rank {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      width: 32px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .top-rank.gold   { color: #f59e0b; }
+    .top-rank.silver { color: #94a3b8; }
+    .top-rank.bronze { color: #cd7c4b; }
+    .top-info { flex: 1; min-width: 0; }
+    .top-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .top-artist { font-size: 0.82rem; color: var(--text-muted); margin-top: 2px; }
+    .top-score {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--green);
+      flex-shrink: 0;
+    }
+    .top-score span { font-size: 0.75rem; color: var(--text-muted); font-weight: 400; }
+
+    .export-bar {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .stats-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .stat-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--green);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 6px;
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    .section-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 32px;
+    }
+  </style>
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="var(--green)">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
+      </svg>
+      <span>Mood<strong>Tracker</strong></span>
+    </div>
+    <a href="index.html" class="nav-item">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+      </svg>
+      Songs
+    </a>
+    <a href="create.html" class="nav-item">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+      </svg>
+      Add Song
+    </a>
+    <a href="reports.html" class="nav-item active">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14H7v-2h5v2zm5-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+      </svg>
+      Reports
+    </a>
+  </aside>
+
+  <main class="main-content">
+    <div class="topbar" style="margin-bottom:32px">
+      <h1>Reports</h1>
+    </div>
+
+    <div class="stats-strip" id="stats-strip">
+      <div class="stat-card">
+        <div class="stat-number skeleton" style="height:36px;width:60px;margin:0 auto 6px" id="stat-total">—</div>
+        <div class="stat-label">Total Songs</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="stat-moods">6</div>
+        <div class="stat-label">Moods Tracked</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="stat-top-score">—</div>
+        <div class="stat-label">Top Avg Rating</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="stat-top-count">—</div>
+        <div class="stat-label">Total Ratings</div>
+      </div>
+    </div>
+
+    <div class="export-bar">
+      <button class="btn btn-secondary" id="btn-export-csv">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+        </svg>
+        Export CSV
+      </button>
+    </div>
+
+    <div class="section-card">
+      <div class="section-title">Mood Distribution</div>
+      <div id="mood-chart">
+        <div class="skeleton" style="height:200px;border-radius:8px"></div>
+      </div>
+    </div>
+
+    <div class="section-card">
+      <div class="section-title">Top Rated Songs</div>
+      <div id="top-rated" style="display:flex;flex-direction:column;gap:12px">
+        <div class="skeleton" style="height:68px;border-radius:12px"></div>
+        <div class="skeleton" style="height:68px;border-radius:12px"></div>
+        <div class="skeleton" style="height:68px;border-radius:12px"></div>
+      </div>
+    </div>
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/api.js"></script>
+  <script src="js/reports.js"></script>
+</body>
+</html>
